@@ -1,0 +1,24 @@
+{% extends 'base.hrml' % }
+
+<!-- 글을 수정해주는 html -->
+
+{% block content %}
+<h1>글 수정</h1>
+
+<form action="{% url 'products:update' product.pk %}" method="POST">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+ 
+    <br><br>
+    <button type = 'submit'>적용</button>
+</form>
+
+
+<a href="{% url 'products:product_detail' product.pk %}"><button>이전으로</button></a>
+
+
+
+
+
+{% endblock content %}

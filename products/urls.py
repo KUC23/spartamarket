@@ -9,8 +9,11 @@ app_name = 'products'
 
 urlpatterns = [
     path("index/", views.index, name="index"),
-    path("products/", views.products, name="products"),
-    path("product_detail/", views.product_detail, name="product_detail"),
+    path("", views.products, name="products"),
+    path('create/', views.create, name = 'create'),
+    path("<int:pk>/", views.product_detail, name="product_detail"),
+    path('<int:pk>/delete/',views.delete, name = 'delete'),
+    path('<int:pk>/update/',views.update, name = 'update'),
 
     path('users/', include('users.urls')),
     path('accounts/', include('accounts.urls')), 
