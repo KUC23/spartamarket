@@ -70,3 +70,46 @@ def signup(request):
         form = CustomUserCreationForm()
     context = {'form': form}
     return render(request, 'accounts/signup.html',context)
+
+
+# 회원 탈퇴
+def delete(request):
+    if request.user.is_authenticated:
+        request.user.delete()
+        auth_logout(request)
+    return redirect('index')
+
+
+
+# 회원정보 수정
+@require_http_methods(['GET','POST'])
+def update(request):
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = CustomUserChangeForm(instance = request.user)
+    context = {'form' : form}  
+    return render(request,'accounts/update.html',context)
+
+
+@require_http_methods(["GET", "POST"])
+def change_password(request):
+    if request.method == 'POST':
+        # 순서가 중요
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            # 비밀번호를 변경한 후 에 로그인을 유지해줌
+            update_session_auth_hash(request, form.user)
+            return redirect('index')
+    else:
+        form = PasswordChangeForm(request.user)
+    context = {'form':form}
+    return render(request,'accounts/change_password.html',context)
+
+
+
+

@@ -14,11 +14,20 @@
             {% if request.user.is_authenticated %}
 
             <h1>{{ request.user.username }} 환영합니다!</h1>
-            
+
+            <form action="{% url 'accounts:update' %}" method="POST">
+                {% csrf_token %}     
+                <input type="submit" value="회원정보 수정"></input>
+            </form>                
+                
+
             <form action="{% url 'accounts:logout' %}" method="POST">
                 {% csrf_token %}
                 <input type="submit" value="로그아웃"></input>
             </form>
+
+            <br>
+            <hr>
             <br>
 
             {% else %}
