@@ -20,9 +20,15 @@ from django.urls.conf import include
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('products/', include('products.urls')),
     path('accounts/', include('accounts.urls')), 
     path('users/', include('users.urls')),
 ]
+
+# 디버그 모드, 즉 개발모드인 경우에는 아래의 코드를 실행하라는 명령어어
+if settings.DEBUG:
+    # 개발 모드 중 미디어 파일의 경로를 찾아주는 명령어
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

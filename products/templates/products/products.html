@@ -16,6 +16,9 @@
 {% for product in products %}
     <a href="{% url 'products:product_detail' product.pk %}">
     <p>[{{product.pk}}] {{ product.title }}</p>
+    {% if product.image %}
+    <img src="{{ product.image.url }}" alt="{{product.image.url}}">
+    {% endif %}
     </a>
     <hr>
 {% endfor %}

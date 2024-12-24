@@ -1,8 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <title>spartamarket</title>
         <p>head: 베이스 페이지입니다</p>
         <a href="{% url 'products:index' %}"><button>홈으로</button></a>
