@@ -5,10 +5,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>spartamarket</title>
         <p>head: 베이스 페이지입니다</p>
+        
+
     </head>
-    
+    {% block head %} {% endblock head %}
     <body>
-        <p>body: 베이스 페이지입니다</p>
+        <div>
+            {% if request.user.is_authenticated %}
+
+            <h1>{{ request.user.username }} 환영합니다!</h1>
+            <form action="{% url 'accounts:logout' %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="로그아웃"></input>
+            </form>
+            <br>
+
+            {% else %}
+            <a href="{% url 'accounts:login' %}"><button>로그인</button></a>
+            <a href="{% url 'accounts:signup' %}"><button>회원가입</button></a>
+
+
+            {% endif %}
+        </div>
+        
         {% block content %}
 
         {% endblock content %}
