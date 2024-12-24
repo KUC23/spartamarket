@@ -24,3 +24,21 @@ def product_detail(request, pk):
     context = {'product' : product}
     return render(request, 'product_detail.html',context)
 
+
+
+# 'new' 에서 작섣된 데이터를 'Article' 모델로로 저장해주는 함수
+# 로그인이 되었을 때만 작동동
+@login_required
+def create(request):
+    if request.method == 'POST':
+        form = ArticleForm(request.POST,request.FILES) # 데이터 바인딩된 폼
+        if form.is_valid():
+            # 데이터를 저장하고,
+            product = form.save()
+            # 다시 product_detail로로 redirect
+            return redirect('product_detail',product.pk)
+    else: 
+        form = ArticleForm()
+
+    context = {'form': form}
+    return render(request,'create.html', context)
