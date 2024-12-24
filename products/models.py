@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 
 
-class  Article(models.Model):
+class  Product(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField()
                                     #auto_now_add 새로 추가될 때 작성   
@@ -18,7 +18,7 @@ class  Article(models.Model):
     
 
 class Comment(models.Model):
-    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    article = models.ForeignKey(Product, on_delete=models.CASCADE)
     content = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
