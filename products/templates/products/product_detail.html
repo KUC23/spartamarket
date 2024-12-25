@@ -15,7 +15,14 @@
 <a href="{% url 'products:products' %}"><button>전체 목록보기</button></a>
 <br><br>
 <a href="{% url 'products:update' product.pk %}"><button>글수정</button></a>
-
+<form action="{% url 'products:toggle_like' product.pk %}" method="POST">
+    {% csrf_token %}
+    {% if request.user in product.liked_by.all %}
+    <button type="submit">찜 해제</button>
+    {% else %}
+    <button type="submit">찜하기</button>
+    {% endif %}
+</form>
 
 <form action="{% url 'products:delete' product.pk %}" method="POST"><br>
     {% csrf_token %}

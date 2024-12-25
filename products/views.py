@@ -93,3 +93,19 @@ def update(request, pk):
 
     context = {'form': form, 'product': product}
     return render(request, 'products/update.html',context)
+
+
+
+# 찜하기 기능
+@login_required
+def toggle_like(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+
+    if request.user in product.liked_by.all():
+        # 이미 찜한 경우, 찜 해제
+        product.liked_by.remove(request.user)
+    else:
+        # 찜하지 않은 경우, 찜 추가
+        product.liked_by.add(request.user)
+
+    return redirect('products:product_detail', product.pk)

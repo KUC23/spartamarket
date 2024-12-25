@@ -16,6 +16,8 @@
             {% if request.user.is_authenticated %}
 
             <h1>{{ request.user.username }} 환영합니다!</h1>
+            
+            <a href="{% url 'users:profile' request.user.username  %}">프로필 페이지</a>    
 
             <form action="{% url 'accounts:update' %}" method="POST">
                 {% csrf_token %}     

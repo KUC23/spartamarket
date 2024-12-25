@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{username }}의 프로필 페이지</h1>
+    <h3>user_name : {{username }}</h3>
+
+    <a href="{% url 'products:index' %}"><button>홈으로</button></a>
+    
+<h2>{{ request.user.username }}님의 찜 목록</h2>
+
+{% if liked_products.exists %}
+    <ul>
+        {% for product in liked_products %}
+        <li>
+            <h3>{{ product.title }}</h3>
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.title }}" style="max-width: 200px;">
+            {% endif %}
+            <p>{{ product.content }}</p>
+            <a href="{% url 'products:product_detail' product.pk %}">상세 보기</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>찜한 물건이 없습니다.</p>
+{% endif %}
+
+<a href="{% url 'products:products' %}">상품 목록으로 돌아가기</a>
+{% endblock %}
