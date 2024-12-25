@@ -1,11 +1,64 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{{username }}의 프로필 페이지</h1>
-    <h3>user_name : {{username }}</h3>
+<h1>{{username }}의 프로필 페이지</h1>
+<h3>user_name : {{ username }}</h3>
+<h3>가입일: {{ user.date_joined|date:"Y.m.d" }}</h3>
+<hr>
 
-    <a href="{% url 'products:index' %}"><button>홈으로</button></a>
-    
+<h2>팔로우 상태</h2>
+<p>
+팔로워: 
+{% if user.followers.count %}
+    {{ user.followers.count }}
+{% else %}
+ 0
+{% endif %}
+</p>
+<p>
+팔로잉: 
+{% if user.followers.count %}
+    {{ user.following.count }}</p>
+{% else %}
+ 0
+{% endif %} 
+</p>
+
+
+{% if is_following %}
+<form action="{% url 'users:toggle_follow' username=user.username %}" method="POST">
+    {% csrf_token %}
+    <button type="submit">언팔로우</button>
+</form>
+{% else %}
+    <form action="{% url 'users:toggle_follow' username=user.username %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">팔로우</button>
+    </form>
+{% endif %}
+
+
+<hr>
+
+
+<h2>{{ request.user.username }}님의 등록 물품</h2>
+{% if products_registered %}
+    <ul>
+        {% for product in products_registered %}
+            <li>
+                <h3>{{ product.title }}</h3>
+                <a href="{% url 'products:product_detail' product.pk %}">상세 보기</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>등록된 물품이 없습니다.</p>
+{% endif %}
+
+<hr>
+
+
+
 <h2>{{ request.user.username }}님의 찜 목록</h2>
 
 {% if liked_products.exists %}
@@ -26,4 +79,6 @@
 {% endif %}
 
 <a href="{% url 'products:products' %}">상품 목록으로 돌아가기</a>
+
+<hr>
 {% endblock %}
