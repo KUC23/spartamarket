@@ -3,6 +3,10 @@
 
 {% block content %}
 
+{% load static %}
+<meta charset="UTF-8">
+<link rel="stylesheet" href="{% static 'css/styles_products.css' %}">
+
 <h1>인덱스 페이지입니다.</h1>
 <a href="{% url "products:products" %}">물품 목록</a>
 {% endblock content %}

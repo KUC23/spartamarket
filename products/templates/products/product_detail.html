@@ -1,21 +1,29 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
 <h3>물품 상세목록</h3>
+
+<meta charset="UTF-8">
+<link rel="stylesheet" href="{% static 'css/styles_detail.css' %}">
+
 <h3>제목 : {{ product.title }}</h3>
 
 {% if product.image %}
     <img src="{{ product.image.url }}" alt="{{product.image.url}}">
 {% endif %}
 
+<h3>작성자 : {{ product.owner }}</h3>
 <h3>내용 : {{ product.content }}</h3>
 <h3>작성일시 : {{ product.created_at }}</h3>
 <h3>수정일시 : {{ product.updated_at }}</h3>
 
+
 <a href="{% url 'products:products' %}"><button>전체 목록보기</button></a>
 <br><br>
 <a href="{% url 'products:update' product.pk %}"><button>글수정</button></a>
-<form action="{% url 'products:toggle_like' product.pk %}" method="POST">
+<form action="{% url 'products:toggle_like' product.pk %}" method="POST"><br>
     {% csrf_token %}
     {% if request.user in product.liked_by.all %}
     <button type="submit">찜 해제</button>

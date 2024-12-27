@@ -4,24 +4,29 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style_products.css' %}">
+
+
         <title>spartamarket</title>
-        <p>head: 베이스 페이지입니다</p>
-        <a href="{% url 'products:index' %}"><button>홈으로</button></a>
+
+        <a href="{% url 'products:products' %}"><button>홈으로</button></a>
+
         {% block head %} {% endblock head %}
     </head>
     
     <body>
-        <div>
+
+        <div class="button-container">
             {% if request.user.is_authenticated %}
 
             <h1>{{ request.user.username }} 환영합니다!</h1>
-            
-            <a href="{% url 'users:profile' request.user.username  %}">프로필 페이지</a>    
+    
+            <a href="{% url 'users:profile' request.user.username  %}"><button>프로필 페이지</button></a>    
 
             <form action="{% url 'accounts:update' %}" method="POST">
                 {% csrf_token %}     
                 <input type="submit" value="회원정보 수정"></input>
+
             </form>                
                 
 
@@ -29,10 +34,6 @@
                 {% csrf_token %}
                 <input type="submit" value="로그아웃"></input>
             </form>
-
-            <br>
-            <hr>
-            <br>
 
             {% else %}
             <br>

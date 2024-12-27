@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load static %}
+<meta charset="UTF-8">
+<link rel="stylesheet" href="{% static 'css/styles_products.css' %}">
+
 <h1>물품 정보 수정</h1>
+
+
+
 <!-- form은 기본적으로 텍스트형식의 데이터 교환이기때문에 enctype="multipart/form-data"를 이용해 이미지 전송도 가능하게 해준다. -->
 <form action="{% url 'products:create' %}" method="POST"  enctype="multipart/form-data">
     {% csrf_token %}

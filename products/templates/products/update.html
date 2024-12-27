@@ -1,9 +1,11 @@
-{% extends 'base.hrml' % }
-
+{% extends 'base.html' % }
+{% load static %}
 <!-- 글을 수정해주는 html -->
 
 {% block content %}
 <h1>글 수정</h1>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="{% static 'css/styles_products.css' %}">
 
 <form action="{% url 'products:update' product.pk %}" method="POST">
     {% csrf_token %}

@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+{% load static %}
+<meta charset="UTF-8">
+<link rel="stylesheet" href="{% static 'css/styles_products.css' %}">
+
 <h1>로그인</h1>
 
 <form action="{% url 'accounts:login' %}" method="POST">

@@ -33,8 +33,9 @@ def create(request):
     if request.method == 'POST':
         form = ArticleForm(request.POST,request.FILES) # 데이터 바인딩된 폼
         if form.is_valid():
-            # 데이터를 저장하고,
-            product = form.save()
+            product = form.save(commit=False)
+            product.owner = request.user  # 로그인된 유저를 작성자로 설정
+            product.save()  # 저장
             # 다시 product_detail로로 redirect
             return redirect('products:product_detail',product.pk)
     else: 

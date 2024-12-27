@@ -1,26 +1,32 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
-<h1>물품 목록</h1>
-
-
+<head>
+    <h1>물품 목록</h1>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/styles_products.css' %}">
+</head>
 {% if request.user.is_authenticated %}
-    <a href="{% url  'products:create' %}"><button>새로운 글 작성</button></a>
-
+    <a href="{% url 'products:create' %}"><button>새로운 글 작성</button></a>
 {% else %}
     <a href="{% url 'accounts:login'%}">로그인하고 글작성하기</a>
-
 {% endif %}
 
+<div class="product-grid">
+    {% for product in products %}
+        <div class="product-item">
+            <a href="{% url 'products:product_detail' product.pk %}">
+                <p>[{{ product.pk }}] {{ product.title }}</p>
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                {% else %}
+                    <p>No image available</p>
+                {% endif %}
+            </a>
+        </div>
+    {% endfor %}
+</div>
 
-{% for product in products %}
-    <a href="{% url 'products:product_detail' product.pk %}">
-    <p>[{{product.pk}}] {{ product.title }}</p>
-    {% if product.image %}
-    <img src="{{ product.image.url }}" alt="{{product.image.url}}">
-    {% endif %}
-
-    </a>
-    <hr>
-{% endfor %}
 {% endblock content %}

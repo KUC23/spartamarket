@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+{% load static %}
+<meta charset="UTF-8">
+<link rel="stylesheet" href="{% static 'css/styles_products.css' %}">
+
 <h1>{{username }}의 프로필 페이지</h1>
 <h3>user_name : {{ username }}</h3>
 <h3>가입일: {{ user.date_joined|date:"Y.m.d" }}</h3>
